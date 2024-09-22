@@ -8,12 +8,15 @@
 var title_mappings = [
 {pattern : /Google Chrome/, mapto : 'Google Chrome'},
 {pattern : /Firefox/, mapto : 'Google Chrome'}, // lol
+{pattern : /Brave Browser/, mapto : 'Brave Browser'},
 {pattern : /MATLAB/, mapto : 'Matlab'},
+{pattern : /Xcode/, mapto : 'Xcode'},
 {pattern : /Figure/, mapto : 'Matlab'},
 {pattern : /Inotebook/, mapto : 'INotebook'},
 {pattern : /.pdf/, mapto : 'Papers'},
-{pattern : /Gmail/, mapto : 'Gmail'},
+{pattern : /.*Chat/, mapto : 'Google Chat'},
 {pattern : /karpathy@/, mapto : 'Terminal'},
+{pattern : /iTerm2/, mapto : 'Terminal'},
 {pattern : /Sublime Text/, mapto : 'SubText2'},
 {pattern : /\.js.*Sublime Text/, mapto : 'SubText2 Coding'},
 {pattern : /\.py.*Sublime Text/, mapto : 'SubText2 Coding'},
@@ -43,13 +46,16 @@ function mapwin(w) {
       mapped_title = patmap.mapto;
     }
   }
+  console.log(mapped_title);
+  console.log(w);
+  console.log("-------");
   return mapped_title;
 }
 
 // These groups will be rendered together in the "barcode view". For example, I like
 // to group my work stuff and play stuff together.
 var display_groups = [];
-display_groups.push(["Gmail", "Google Chrome", "MISC", "SubText2"]); // internet related
+display_groups.push(["Gmail", "Google Chrome", "MISC", "SubText2", "Brave Browser", "Xcode", "Google Chat"]); // internet related
 display_groups.push(["Matlab", "SubText2 Coding", "INotebook", "Terminal", "Papers"]); // work related
 display_groups.push(["TeXworks"]); // paper writing related
 display_groups.push(["Locked Screen"]); // computer not being used 

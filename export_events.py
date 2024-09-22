@@ -16,17 +16,17 @@ def loadEvents(fname):
   events = []
 
   try:
-    ws = open(fname, 'r').read().decode('utf-8').splitlines()
+    ws = open(fname, 'r').read().splitlines()
     events = []
     for w in ws:
       ix = w.find(' ') # find first space, that's where stamp ends
       stamp = int(w[:ix])
       str = w[ix+1:]
       events.append({'t':stamp, 's':str})
-  except Exception, e:
-    print '%s probably does not exist, setting empty events list.' % (fname, )
-    print 'error was:'
-    print e
+  except Exception as e:
+    print('%s probably does not exist, setting empty events list.' % (fname, ))
+    print('error was:')
+    print(e)
     events = []
   return events
 
@@ -50,6 +50,9 @@ def updateEvents():
   L.extend(glob.glob("logs/notes_*.txt"))
 
   # extract all times. all log files of form {type}_{stamp}.txt
+  print(L)
+  for x in L:
+    print(x[x.find('_')+1:x.find('.txt')])
   ts = [int(x[x.find('_')+1:x.find('.txt')]) for x in L]
   ts = list(set(ts))
   ts.sort()
@@ -87,7 +90,7 @@ def updateEvents():
       e4mod = mtime(e4f)
       if e1mod > tmod or e2mod > tmod or e3mod > tmod or e4mod > tmod:
         dowrite = True # better update!
-        print 'a log file has changed, so will update %s' % (fwrite, )
+        print('a log file has changed, so will update %s' % (fwrite, ))
     else:
       # output file doesnt exist, so write.
       dowrite = True
@@ -105,11 +108,11 @@ def updateEvents():
 
       eout = {'window_events': e1, 'keyfreq_events': e2, 'notes_events': e3, 'blog': e4}
       open(fwrite, 'w').write(json.dumps(eout))
-      print 'wrote ' + fwrite
+      print('wrote ' + fwrite)
 
   fwrite = os.path.join(RENDER_ROOT, 'export_list.json')
-  open(fwrite, 'w').write(json.dumps(out_list).encode('utf8'))
-  print 'wrote ' + fwrite
+  open(fwrite, 'w').write(json.dumps(out_list))
+  print('wrote ' + fwrite)
 
 # invoked as script
 if __name__ == '__main__':
